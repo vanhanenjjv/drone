@@ -1,7 +1,12 @@
+.vscode/
+
 node_modules/
 
 Dockerfile
 docker-compose.yml
+
+# tsconfig.json
+# .eslintrc.json
 
 db-init-scripts/
 db/

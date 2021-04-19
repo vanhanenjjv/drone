@@ -11,7 +11,7 @@ CREATE TABLE users (
     "name"                        TEXT                          NOT NULL,
     "username"                    TEXT                          NOT NULL UNIQUE,
     "password"                    TEXT                          NOT NULL,
-    "token"                       TEXT                          NOT NULL
+    "token"                       TEXT                          NOT NULL UNIQUE
 );
 
 CREATE TABLE pictures (
