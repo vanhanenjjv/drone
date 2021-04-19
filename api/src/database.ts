@@ -1,5 +1,5 @@
 import { Pool } from 'pg';
-import { Drone, Picture, User } from './entities';
+import { Drone, Picture, Session, User } from './entities';
 
 
 const pool = new Pool({
@@ -15,13 +15,19 @@ pool.connect().catch(reason => {
 });
 
 export async function drones(): Promise<Drone[]> {
-  const result = await pool.query('SELECT * FROM drones');
+  const result = await pool.query('SELECT * FROM drone');
 
   return result.rows;
 }
 
 export async function users(): Promise<User[]> {
-  const result = await pool.query('SELECT * FROM users');
+  const result = await pool.query('SELECT * FROM user');
+
+  return result.rows;
+}
+
+export async function sessions(): Promise<Session[]> {
+  const result = await pool.query('SELECT * FROM drone_user');
 
   return result.rows;
 }

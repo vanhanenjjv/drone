@@ -26,3 +26,8 @@ export interface Picture {
   location: Coordinate;
   timestamp: Date;
 }
+
+export interface Session {
+  user: User;
+  drone: Drone;
+}

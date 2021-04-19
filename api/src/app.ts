@@ -1,4 +1,4 @@
-import express, { json } from 'express';
+import express from 'express';
 import * as database from './database';
 
 
@@ -11,9 +11,20 @@ app.get('/', (req, res) => {
 app.get('/drones', async (req, res) => {
   const drones = await database.drones();
 
-  database.users();
-
   res.json(drones);
 });
+
+app.get('/users', async (req, res) => {
+  const users = await database.users();
+
+  res.json(users);
+});
+
+app.get('/sessions', async (req, res) => {
+  const users = await database.sessions();
+
+  res.json(users);
+});
+
 
 app.listen(8080);
