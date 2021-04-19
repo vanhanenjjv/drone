@@ -1,7 +1,8 @@
 {
   "folders": [
-    { "name": "API", "path": "./src/api/" },
-    { "name": "Web", "path": "./src/web/" }
+    { "name": "Database", "path": "./db" },
+    { "name": "API", "path": "./api/" },
+    { "name": "Web", "path": "./web/" }
   ],
   "settings": {
     "files.exclude": {

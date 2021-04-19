@@ -1,5 +1,5 @@
 import express, { json } from 'express';
-import database from './database';
+import * as database from './database';
 
 
 const app = express();

@@ -1,8 +1,8 @@
 version: "3"
 
 services:
-  app:
-    build: "."
+  api:
+    build: "./api/"
     restart: "always"
     env_file: 
       - "database.env"
@@ -19,9 +19,11 @@ services:
     env_file: 
       - "database.env"
     volumes:
-      - "./db-init-scripts:/docker-entrypoint-initdb.d"
+      - "./db/init:/docker-entrypoint-initdb.d:ro"
+      - "./db/data:/var/lib/postgresql/data"
     networks:
       - "internal"
       
 networks:
   internal:
+
