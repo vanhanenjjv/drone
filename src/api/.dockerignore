@@ -3,7 +3,7 @@ node_modules/
 Dockerfile
 docker-compose.yml
 
-intidb.d/
+db-init-scripts/
 db/
 
 database.env
