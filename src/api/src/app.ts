@@ -1,14 +1,17 @@
 import express, { json } from 'express';
 import database from './database';
 
+
 const app = express();
 
 app.get('/', (req, res) => {
-  res.send("Okay.");
+  res.send('Okay.');
 });
 
 app.get('/drones', async (req, res) => {
   const drones = await database.drones();
+
+  database.users();
 
   res.json(drones);
 });

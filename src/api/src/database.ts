@@ -1,6 +1,7 @@
 import { Pool } from 'pg';
 import { Drone, Picture, User } from './entities';
 
+
 const pool = new Pool({
   host:     process.env.POSTGRES_HOST,
   database: process.env.POSTGRES_DATABASE,
@@ -11,19 +12,19 @@ const pool = new Pool({
 pool.connect().catch(console.error);
 
 async function drones(): Promise<Drone[]> {
-  const result = await pool.query("SELECT * FROM drones");
+  const result = await pool.query('SELECT * FROM drones');
 
   return result.rows;
 }
 
 async function users(): Promise<User[]> {
-  const result = await pool.query("SELECT * FROM users");
+  const result = await pool.query('SELECT * FROM users');
 
   return result.rows;
 }
 
 async function pictures(): Promise<Picture[]> {
-  const result = await pool.query("SELECT * FROM pictures");
+  const result = await pool.query('SELECT * FROM pictures');
 
   return result.rows;
 }
