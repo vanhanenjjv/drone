@@ -15,6 +15,7 @@ services:
 
   db:
     image: "postgres:10"
+    user: "postgres"
     restart: "always"
     env_file: 
       - "database.env"
