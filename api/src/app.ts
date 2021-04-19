@@ -5,7 +5,7 @@ import * as database from './database';
 const app = express();
 
 app.get('/', (req, res) => {
-  res.send('Okay.');
+  res.send('Okay. zoomer');
 });
 
 app.get('/drones', async (req, res) => {

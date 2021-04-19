@@ -1,0 +1,7 @@
+version: "3"
+
+services:
+  api:
+    entrypoint: "npm run dev"
+    volumes:
+      - "./api/src:/app/src:ro"
