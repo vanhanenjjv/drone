@@ -21,6 +21,10 @@ export interface Coordinate {
 
 export interface Picture {
   id: number;
+}
+
+export interface Analytics {
+  id: number;
   name: string;
   description: string;
   location: Coordinate;

@@ -37,3 +37,11 @@ CREATE TABLE "drone_user" (
 
     PRIMARY KEY ("drone", "user")
 );
+
+CREATE TABLE "drone_picture" (
+    "drone"                       INT                           REFERENCES "drone" ("id"),
+    "picture"                     INT                           REFERENCES "picture" ("id"),
+    "user"                        INT                           REFERENCES "user" ("id"),
+
+    PRIMARY KEY ("drone", "picture", "user")
+);

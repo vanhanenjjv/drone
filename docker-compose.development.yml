@@ -5,3 +5,12 @@ services:
     entrypoint: "npm run dev"
     volumes:
       - "./api/src:/app/src:ro"
+  adminer:
+    image: "adminer"
+    restart: "always"
+    depends_on: 
+      - "db"
+    ports:
+      - "8081:8080"
+    networks:
+      - "internal"

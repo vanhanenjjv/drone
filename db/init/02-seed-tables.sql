@@ -16,3 +16,6 @@ VALUES                         (1        ,    1         );
 
 INSERT INTO "drone_user" ("drone",    "user")
 VALUES                   (1      ,    1     );
+
+INSERT INTO "drone_picture" ("drone",    "picture",    "user")
+VALUES                      (1      ,    1        ,    1     );
