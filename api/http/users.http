@@ -1,4 +1,4 @@
-### Get all users
+### Fetch all users
 
 GET http://localhost:5000/users
 
@@ -22,17 +22,17 @@ Content-Type: application/json
   "username": "marco_polo"
 }
 
-### Modify existing user #1
+### Correctly modify existing user #1
 
 PUT http://localhost:5000/users/1
 Content-Type: application/json
 
 {
-  "name": "renamed boi",
-  "username": "jaffa_keksi"
+  "name": "big boi",
+  "username": "toivoton"
 }
 
-### Modify existing user #2
+### Correctly modify existing user #2
 
 PUT http://localhost:5000/users/2
 Content-Type: application/json
@@ -40,3 +40,24 @@ Content-Type: application/json
 {
   "name": "mandrake linux"
 }
+
+### Incorrectly modify existing user #1
+
+PUT http://localhost:5000/users/2
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "hallitus"
+}
+
+### Incorrectly modify existing user #2
+
+PUT http://localhost:5000/users/9999
+Content-Type: application/json
+
+{
+  "name": "nonexistent user"
+}
+
+
