@@ -62,7 +62,18 @@ router.put('/:id', paramShouldBeNumber('id'), async (req, res) => {
 
   users.update(user);
 
-  res.sendStatus(200);
+  res.sendStatus(204);
+});
+
+router.delete('/:id', paramShouldBeNumber('id'), async (req, res) => {
+  const id = Number.parseInt(req.params.id);
+
+  if (!await users.exists(id))
+    return res.status(400).json({ message: 'User not found.' });
+
+  users.remove(id);
+
+  res.sendStatus(204);
 });
 
 

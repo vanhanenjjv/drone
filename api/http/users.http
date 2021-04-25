@@ -60,4 +60,11 @@ Content-Type: application/json
   "name": "nonexistent user"
 }
 
+### Correctly delete user 
+
+DELETE http://localhost:5000/users/1
+
+### Incorrectly delete user
+
+DELETE http://localhost:5000/users/9999
 

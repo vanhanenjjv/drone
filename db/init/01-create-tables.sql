@@ -25,23 +25,23 @@ CREATE TABLE "picture" (
 );
 
 CREATE TABLE "picture_analytics" (
-    "picture"                     INT                           REFERENCES "picture" ("id"),
-    "analytics"                   INT                           REFERENCES "analytics" ("id"),
+    "picture"                     INT                           REFERENCES "picture" ("id") ON DELETE CASCADE,
+    "analytics"                   INT                           REFERENCES "analytics" ("id") ON DELETE CASCADE,
 
     PRIMARY KEY ("picture", "analytics")
 );
 
 CREATE TABLE "drone_user" (
-    "drone"                       INT                           REFERENCES "drone" ("id"),
-    "user"                        INT                           REFERENCES "user" ("id"),
+    "drone"                       INT                           REFERENCES "drone" ("id") ON DELETE CASCADE,
+    "user"                        INT                           REFERENCES "user" ("id") ON DELETE CASCADE,
 
     PRIMARY KEY ("drone", "user")
 );
 
 CREATE TABLE "drone_picture" (
-    "drone"                       INT                           REFERENCES "drone" ("id"),
-    "picture"                     INT                           REFERENCES "picture" ("id"),
-    "user"                        INT                           REFERENCES "user" ("id"),
+    "drone"                       INT                           REFERENCES "drone" ("id") ON DELETE CASCADE,
+    "picture"                     INT                           REFERENCES "picture" ("id") ON DELETE CASCADE,
+    "user"                        INT                           REFERENCES "user" ("id") ON DELETE CASCADE,
 
     PRIMARY KEY ("drone", "picture", "user")
 );

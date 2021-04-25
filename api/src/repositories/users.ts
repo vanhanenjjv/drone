@@ -78,3 +78,31 @@ export async function update(user: User): Promise<void> {
     [user.name, user.username, user.id]
   );
 }
+
+export async function remove(id: number): Promise<void> {
+  await pool.query(
+    `
+      DELETE 
+      FROM
+        "user"
+      WHERE
+        id = $1;
+    `,
+    [id]
+  );
+}
+
+export async function exists(id: number): Promise<boolean> {
+  const result = await pool.query(
+    `
+      SELECT
+      FROM
+        "user"
+      WHERE
+        id = $1;
+    `,
+    [id]
+  );
+
+  return result.rowCount === 1;
+}
