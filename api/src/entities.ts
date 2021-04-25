@@ -28,6 +28,6 @@ export interface Picture {
 }
 
 export interface Session {
-  user: User;
-  drone: Drone;
+  user: Partial<User>;
+  drone: Partial<Drone>;
 }
