@@ -1,9 +1,10 @@
 import { User } from '../entities';
+import { UserInsertModel } from '../models';
 import pool from './pool';
 
 
 export async function all(): Promise<User[]> {
-  const result = await pool.query('SELECT * FROM user');
+  const result = await pool.query('SELECT * FROM "user"');
 
   return result.rows;
 }
@@ -14,9 +15,7 @@ export async function single(id: number): Promise<User | undefined> {
       SELECT
         id,
         name,
-        username,
-        password,
-        token
+        username
       FROM 
         "user"
       WHERE
@@ -36,8 +35,46 @@ export async function single(id: number): Promise<User | undefined> {
   return {
     id:       row['id'],
     name:     row['name'],
-    username: row['username'],
-    password: row['password'],
-    token:    row['token']
+    username: row['username']
   };
+}
+
+export async function isUsernameAvailable(username: string): Promise<boolean> {
+  const result = await pool.query(
+    `
+      SELECT
+      FROM
+        "user"
+      WHERE
+        username = $1;
+    `,
+    [username]
+  );
+
+  return result.rowCount === 0;
+}
+
+export async function insert(user: UserInsertModel): Promise<void> {
+  const result = await pool.query(
+    `
+      INSERT INTO "user" ("name",    "username")
+      VALUES             ($1    ,    $2        );
+    `,
+    [user.name, user.username]
+  );
+}
+
+export async function update(user: User): Promise<void> {
+  await pool.query(
+    `
+      UPDATE 
+        "user"
+      SET
+        "name" = $1,
+        "username" = $2
+      WHERE
+        id = $3
+    `,
+    [user.name, user.username, user.id]
+  );
 }

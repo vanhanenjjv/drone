@@ -38,17 +38,17 @@ export async function analyticsOf(id: number): Promise<Analytics | undefined> {
   const result = await pool.query(
     `
       SELECT 
-        analytic.id AS "id",
-        analytic.name AS "name",
-        analytic.description AS "description",
-        analytic.location AS "location",
-        analytic.timestamp AS "timestamp"
+        analytics.id AS "id",
+        analytics.name AS "name",
+        analytics.description AS "description",
+        analytics.location AS "location",
+        analytics.timestamp AS "timestamp"
       FROM 
-        picture_analytic
+        picture_analytics
       INNER JOIN 
-        "picture" ON picture_analytic.picture = picture.id
+        "picture" ON picture_analytics.picture = picture.id
       INNER JOIN 
-        "analytic" ON picture_analytic.analytic = analytic.id
+        "analytics" ON picture_analytics.analytics = analytics.id
       WHERE
         picture.id = $1;
     `,

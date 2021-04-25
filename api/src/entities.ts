@@ -10,8 +10,6 @@ export interface User {
   id: number;
   name: string;
   username: string;
-  password: string;
-  token: string;
 }
 
 export interface Coordinate {
@@ -29,9 +27,4 @@ export interface Analytics {
   description: string;
   location: Coordinate;
   timestamp: Date;
-}
-
-export interface Session {
-  user: Partial<User>;
-  drone: Partial<Drone>;
 }
