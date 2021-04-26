@@ -21,10 +21,10 @@ export interface Picture {
   id: number;
 }
 
-export interface Analytics {
+export interface Analytic {
   id: number;
-  name: string;
-  description: string;
-  location: Coordinate;
-  timestamp: Date;
+  name?: string;
+  description?: string;
+  location?: Coordinate;
+  timestamp?: Date;
 }

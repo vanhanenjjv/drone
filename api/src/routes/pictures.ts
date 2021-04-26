@@ -24,7 +24,7 @@ router.get('/:id', paramShouldBeNumber('id'), async (req, res) => {
 
 router.get('/:id/analytics', paramShouldBeNumber('id'), async (req, res) => {
   const id = Number.parseInt(req.params.id);
-  const analytics = await pictures.analyticsOf(id);
+  const analytics = await pictures.analyticOf(id);
 
   if (!analytics)
     return res.status(404).json({ message: 'Analytics not found.' });

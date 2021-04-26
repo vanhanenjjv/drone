@@ -4,7 +4,7 @@ import pool from './pool';
 
 
 export async function all(): Promise<User[]> {
-  const result = await pool.query('SELECT * FROM "user"');
+  const result = await pool.query('SELECT * FROM users;');
 
   return result.rows;
 }
@@ -17,7 +17,7 @@ export async function single(id: number): Promise<User | undefined> {
         name,
         username
       FROM 
-        "user"
+        users
       WHERE
         id = $1;
     `,
@@ -44,7 +44,7 @@ export async function isUsernameAvailable(username: string): Promise<boolean> {
     `
       SELECT
       FROM
-        "user"
+        users
       WHERE
         username = $1;
     `,
@@ -57,8 +57,8 @@ export async function isUsernameAvailable(username: string): Promise<boolean> {
 export async function insert(user: UserInsertModel): Promise<void> {
   const result = await pool.query(
     `
-      INSERT INTO "user" ("name",    "username")
-      VALUES             ($1    ,    $2        );
+      INSERT INTO users  (name,    username)
+      VALUES             ($1  ,    $2      );
     `,
     [user.name, user.username]
   );
@@ -68,12 +68,12 @@ export async function update(user: User): Promise<void> {
   await pool.query(
     `
       UPDATE 
-        "user"
+        users
       SET
-        "name" = $1,
-        "username" = $2
+        name = $1,
+        username = $2
       WHERE
-        id = $3
+        id = $3;
     `,
     [user.name, user.username, user.id]
   );
@@ -84,7 +84,7 @@ export async function remove(id: number): Promise<void> {
     `
       DELETE 
       FROM
-        "user"
+        users
       WHERE
         id = $1;
     `,
@@ -97,7 +97,7 @@ export async function exists(id: number): Promise<boolean> {
     `
       SELECT
       FROM
-        "user"
+        users
       WHERE
         id = $1;
     `,

@@ -3,7 +3,7 @@ import { Drone, User } from '../entities';
 
 
 export async function all(): Promise<Drone[]> {
-  const result = await pool.query('SELECT * FROM drone');
+  const result = await pool.query('SELECT * FROM drones;');
 
   return result.rows;
 }
@@ -18,7 +18,7 @@ export async function single(id: number): Promise<Drone | undefined> {
         model,
         additional
       FROM 
-        drone
+        drones
       WHERE
         id = $1;
     `,
@@ -47,7 +47,7 @@ export async function isAvailable(id: number): Promise<boolean> {
     `
       SELECT
       FROM 
-        drone_user
+        drone_users
       WHERE
         drone = $1;
     `,
@@ -61,20 +61,20 @@ export async function userOf(id: number): Promise<Partial<User> | undefined> {
   const result = await pool.query(
     `
       SELECT
-        "user".id AS "user_id",
-        "user".name AS "user_name",
-        "user".username AS "user_username"
+        users.id AS "user_id",
+        users.name AS "user_name",
+        users.username AS "user_username"
       FROM 
-        drone_user
+        drone_users
       INNER JOIN
-        "user" ON drone_user."user" = "user".id
+        users ON drone_users.user = users.id
       WHERE
         drone = $1;
     `,
     [id]
   );
 
-  if (result.rowCount == 0)
+  if (result.rowCount === 0)
     return undefined;
 
   const row = result.rows[0];

@@ -1,9 +1,9 @@
-import { Analytics, Picture } from '../entities';
+import { Analytic, Picture } from '../entities';
 import pool from './pool';
 
 
 export async function all(): Promise<Picture[]> {
-  const result = await pool.query('SELECT * FROM picture');
+  const result = await pool.query('SELECT * FROM pictures;');
 
   return result.rows;
 }
@@ -14,7 +14,7 @@ export async function single(id: number): Promise<Picture | undefined> {
       SELECT
         id
       FROM 
-        picture
+        pictures
       WHERE
         id = $1;
     `,
@@ -34,23 +34,23 @@ export async function single(id: number): Promise<Picture | undefined> {
   };
 }
 
-export async function analyticsOf(id: number): Promise<Analytics | undefined> {
+export async function analyticOf(id: number): Promise<Analytic | undefined> {
   const result = await pool.query(
     `
       SELECT 
-        analytics.id AS "id",
-        analytics.name AS "name",
-        analytics.description AS "description",
-        analytics.location AS "location",
-        analytics.timestamp AS "timestamp"
+        analytics.id AS id,
+        analytics.name AS name,
+        analytics.description AS description,
+        analytics.location AS location,
+        analytics.timestamp AS timestamp
       FROM 
         picture_analytics
       INNER JOIN 
-        "picture" ON picture_analytics.picture = picture.id
+        pictures ON picture_analytics.picture = pictures.id
       INNER JOIN 
-        "analytics" ON picture_analytics.analytics = analytics.id
+        analytics ON picture_analytics.analytic = analytics.id
       WHERE
-        picture.id = $1;
+        pictures.id = $1;
     `,
     [id]
   );
