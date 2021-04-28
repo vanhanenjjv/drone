@@ -3,7 +3,16 @@ import { Drone, User } from '../entities';
 
 
 export async function all(): Promise<Drone[]> {
-  const result = await pool.query('SELECT * FROM drones;');
+  const result = await pool.query(`
+    SELECT 
+      "id",
+      "name",
+      "brand",
+      "model",
+      "additional"
+    FROM 
+      "drone"
+  `);
 
   return result.rows;
 }
@@ -12,15 +21,15 @@ export async function single(id: number): Promise<Drone | undefined> {
   const result = await pool.query(
     `
       SELECT
-        id,
-        name,
-        brand,
-        model,
-        additional
+        "id",
+        "name",
+        "brand",
+        "model",
+        "additional"
       FROM 
-        drones
+        "drone"
       WHERE
-        id = $1;
+        "id" = $1
     `,
     [id]
   );
@@ -29,7 +38,7 @@ export async function single(id: number): Promise<Drone | undefined> {
     return undefined;
 
   if (result.rowCount !== 1)
-    throw new Error('More rows than was expected.');
+    throw new Error('More rows were read than was expected.');
 
   const row = result.rows[0];
 
@@ -47,9 +56,9 @@ export async function isAvailable(id: number): Promise<boolean> {
     `
       SELECT
       FROM 
-        drone_users
+        "drone_user"
       WHERE
-        drone = $1;
+        "drone" = $1
     `,
     [id]
   );
@@ -61,15 +70,15 @@ export async function userOf(id: number): Promise<Partial<User> | undefined> {
   const result = await pool.query(
     `
       SELECT
-        users.id AS "user_id",
-        users.name AS "user_name",
-        users.username AS "user_username"
+        "user"."id"       AS "user_id",
+        "user"."name"     AS "user_name",
+        "user"."username" AS "user_username"
       FROM 
-        drone_users
+        "drone_user"
       INNER JOIN
-        users ON drone_users.user = users.id
+        "user" ON "drone_user"."user" = "user"."id"
       WHERE
-        drone = $1;
+        "drone" = $1
     `,
     [id]
   );

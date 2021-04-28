@@ -3,7 +3,12 @@ import pool from './pool';
 
 
 export async function all(): Promise<Picture[]> {
-  const result = await pool.query('SELECT * FROM pictures;');
+  const result = await pool.query(`
+    SELECT
+      "id"
+    FROM 
+      "picture"
+  `);
 
   return result.rows;
 }
@@ -12,11 +17,11 @@ export async function single(id: number): Promise<Picture | undefined> {
   const result = await pool.query(
     `
       SELECT
-        id
+        "id"
       FROM 
-        pictures
+        "picture"
       WHERE
-        id = $1;
+        "id" = $1
     `,
     [id]
   );
@@ -25,7 +30,7 @@ export async function single(id: number): Promise<Picture | undefined> {
     return undefined;
 
   if (result.rowCount !== 1)
-    throw new Error('More rows than was expected.');
+    throw new Error('More rows were read than was expected.');
 
   const row = result.rows[0];
 
@@ -38,19 +43,19 @@ export async function analyticOf(id: number): Promise<Analytic | undefined> {
   const result = await pool.query(
     `
       SELECT 
-        analytics.id AS id,
-        analytics.name AS name,
-        analytics.description AS description,
-        analytics.location AS location,
-        analytics.timestamp AS timestamp
+        "analytic"."id",
+        "analytic"."name",
+        "analytic"."description"
+        "analytic"."location"
+        "analytic"."timestamp"
       FROM 
-        picture_analytics
+        "picture_analytic"
       INNER JOIN 
-        pictures ON picture_analytics.picture = pictures.id
+        "picture" ON "picture_analytic"."picture" = "picture"."id"
       INNER JOIN 
-        analytics ON picture_analytics.analytic = analytics.id
+        "analytic" ON "picture_analytic"."analytic" = "analytic"."id"
       WHERE
-        pictures.id = $1;
+        "picture"."id" = $1
     `,
     [id]
   );
