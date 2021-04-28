@@ -1,5 +1,5 @@
-import pool from './pool';
 import { Drone, User } from '../entities';
+import { pool, MoreThanOneError } from './common';
 
 
 export async function all(): Promise<Drone[]> {
@@ -38,7 +38,7 @@ export async function single(id: number): Promise<Drone | undefined> {
     return undefined;
 
   if (result.rowCount !== 1)
-    throw new Error('More rows were read than was expected.');
+    throw new MoreThanOneError();
 
   const row = result.rows[0];
 
